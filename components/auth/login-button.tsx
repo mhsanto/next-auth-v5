@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 type LoginButtonProps = {
   children: React.ReactNode;
   mode?: "modal" | "redirect";
@@ -8,7 +12,10 @@ const LoginButton: React.FC<LoginButtonProps> = ({
   mode = "redirect",
   asChild,
 }) => {
-  const handleClick = () => {};
+  const router = useRouter();
+  const handleClick = () => {
+    router.push("/auth/login");
+  };
   return <span onClick={handleClick}>{children}</span>;
 };
 
