@@ -16,7 +16,12 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { LoginFormSchema } from "@/schemas";
+import { FormError } from "../form-error";
+import { FormSuccess } from "../form-success";
+import { useTransition } from "react";
+import { login } from "@/action/login.action";
 export const LoginForm = () => {
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -29,6 +34,9 @@ export const LoginForm = () => {
   function onSubmit(values: z.infer<typeof LoginFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    startTransition(() => {
+      login(values);
+    });
     console.log(values);
   }
   return (
@@ -47,7 +55,11 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="emailaddress@gmail.com" {...field} />
+                  <Input
+                    placeholder="emailaddress@gmail.com"
+                    {...field}
+                    disabled={isPending}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -61,14 +73,22 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your password here" {...field} />
+                  <Input
+                    placeholder="Enter your password here"
+                    {...field}
+                    disabled={isPending}
+                  />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">Submit</Button>
+          <FormError message="Invalid Credential" />
+          <FormSuccess message="" />
+          <Button type="submit" className="w-full" disabled={isPending}>
+            Submit
+          </Button>
         </form>
       </Form>
     </CardWrapper>
