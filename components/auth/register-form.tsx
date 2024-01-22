@@ -15,25 +15,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { LoginFormSchema } from "@/schemas";
+import { RegisterFormSchema } from "@/schemas";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { useState, useTransition } from "react";
 import { login } from "@/action/login.action";
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<string | undefined>("");
   const [isError, setIsError] = useState<string | undefined>("");
-  const form = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<z.infer<typeof RegisterFormSchema>>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       email: "",
+      name: "",
       password: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof LoginFormSchema>) {
+  function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
     setIsError("");
     setIsSuccess("");
     startTransition(() => {
@@ -46,13 +47,13 @@ export const LoginForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel="Welcome Back"
-      backButtonHref="/auth/register"
-      backButtonLabel="Create an account"
+      headerLabel="Create an account"
+      backButtonHref="/auth/login"
+      backButtonLabel="Already have an account"
       showSocial={true}
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="email"
@@ -62,6 +63,24 @@ export const LoginForm = () => {
                 <FormControl>
                   <Input
                     placeholder="emailaddress@gmail.com"
+                    {...field}
+                    disabled={isPending}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Enter Your Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Jhon Doe"
                     {...field}
                     disabled={isPending}
                   />
@@ -92,7 +111,7 @@ export const LoginForm = () => {
           <FormError message={isError} />
           <FormSuccess message={isSuccess} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Submit
+    Create my account
           </Button>
         </form>
       </Form>

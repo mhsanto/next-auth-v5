@@ -2,8 +2,14 @@
 import { LoginFormSchema } from "@/schemas";
 import * as z from "zod";
 
-export const login = (values: z.infer<typeof LoginFormSchema>) => {
+export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   try {
-    console.log(values);
-  } catch (error) {}
+    const validatedFields = LoginFormSchema.safeParse(values);
+    if (!validatedFields.success) {
+      return { error: "Invalid fields" };
+    }
+    return { success: "Email Sent" };
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,12 +1,11 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { GithubIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-
+import Image from "next/image";
 
 export const Social = () => {
   const searchParams = useSearchParams();
@@ -14,9 +13,9 @@ export const Social = () => {
 
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
-    //   callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      //   callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
-  }
+  };
 
   return (
     <div className="flex items-center w-full gap-x-2">
@@ -26,7 +25,7 @@ export const Social = () => {
         variant="outline"
         onClick={() => onClick("google")}
       >
-        <FcGoogle className="h-5 w-5" />
+        <Image src="/assets/google.svg" width={20} height={20} alt="google" />
       </Button>
       <Button
         size="lg"
@@ -34,7 +33,7 @@ export const Social = () => {
         variant="outline"
         onClick={() => onClick("github")}
       >
-        <FaGithub className="h-5 w-5" />
+        <GithubIcon className="h-5 w-5" />
       </Button>
     </div>
   );
