@@ -80,7 +80,7 @@ export const RegisterForm = () => {
                 <FormLabel>Enter Your Name</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Jhon Doe"
+                    placeholder="John Doe"
                     {...field}
                     disabled={isPending}
                   />
