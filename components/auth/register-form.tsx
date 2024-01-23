@@ -19,7 +19,7 @@ import { RegisterFormSchema } from "@/schemas";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { useState, useTransition } from "react";
-import { register } from "@/action/login.action";
+import { register } from "@/lib/action/register.action";
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<string | undefined>("");

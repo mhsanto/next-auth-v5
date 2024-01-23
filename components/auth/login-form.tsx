@@ -19,7 +19,7 @@ import { LoginFormSchema } from "@/schemas";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { useState, useTransition } from "react";
-import { login } from "@/action/login.action";
+import { login } from "@/lib/action/login.action";
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<string | undefined>("");

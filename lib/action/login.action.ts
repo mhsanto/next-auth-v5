@@ -13,14 +13,4 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
     console.log(error);
   }
 };
-export const register = async (values: z.infer<typeof LoginFormSchema>) => {
-  try {
-    const validatedFields = LoginFormSchema.safeParse(values);
-    if (!validatedFields.success) {
-      return { error: "In valid fields" };
-    }
-    return { success: "Email Sent" };
-  } catch (error) {
-    console.log(error);
-  }
-};
+
