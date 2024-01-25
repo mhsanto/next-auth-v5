@@ -9,7 +9,10 @@ const SettingsPage = async () => {
         await signOut();
       }}
     >
-      <button type="submit" className="bg-red-500 text-white p-4 rounded-full">Sign out</button>
+      {JSON.stringify(session)}
+      <button type="submit" className="bg-red-500 text-white p-4 rounded-full">
+        Sign out
+      </button>
     </form>
   );
 };
