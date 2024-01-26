@@ -6,6 +6,7 @@ import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "../token";
+import { sendVerificationEmail } from "../mail";
 export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   try {
     const validatedFields = LoginFormSchema.safeParse(values);
@@ -23,6 +24,10 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
       const verificationToken = await generateVerificationToken(
         existingUser.email!
       );
+      await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token
+      );
       return { success: "Confirmation email has been sent" };
     }
 
@@ -31,7 +36,6 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
-
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
