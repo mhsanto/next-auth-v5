@@ -5,6 +5,7 @@ import { RegisterFormSchema } from "@/schemas";
 import { db } from "../db";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "../token";
+import { sendVerificationEmail } from "../mail";
 
 export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
   try {
@@ -27,6 +28,10 @@ export const register = async (values: z.infer<typeof RegisterFormSchema>) => {
       },
     });
     const verificationToken = await generateVerificationToken(email);
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
     return { success: "Confirmation email has been sent" };
   } catch (error: any) {
     console.log(error.message);
