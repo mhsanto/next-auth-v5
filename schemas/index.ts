@@ -10,6 +10,11 @@ export const RegisterFormSchema = z.object({
 });
 export const ResetPasswordFormSchema = z.object({
   email: z.string().email({
-    message:"Email is required"
+    message: "Email is required",
+  }),
+});
+export const NewPasswordFormSchema = z.object({
+  password: z.string().min(6, {
+    message: "Minimum 7 characters required",
   }),
 });
