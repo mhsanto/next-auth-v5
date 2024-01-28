@@ -8,3 +8,8 @@ export const RegisterFormSchema = z.object({
   password: z.string().min(6).max(50),
   name: z.string().min(3).max(50),
 });
+export const ResetPasswordFormSchema = z.object({
+  email: z.string().email({
+    message:"Email is required"
+  }),
+});
