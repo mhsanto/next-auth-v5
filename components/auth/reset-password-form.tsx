@@ -20,6 +20,7 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { useState, useTransition } from "react";
 import { login } from "@/lib/action/login.action";
+import { resetPassword } from "@/lib/action/reset-password.action";
 export const ResetPasswordForm = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<string | undefined>("");
@@ -35,8 +36,9 @@ export const ResetPasswordForm = () => {
   function onSubmit(values: z.infer<typeof ResetPasswordFormSchema>) {
     setIsError("");
     setIsSuccess("");
+    console.log(values)
     startTransition(() => {
-      login(values).then((data) => {
+      resetPassword(values).then((data) => {
         setIsSuccess(data?.success);
         setIsError(data?.error);
       });
