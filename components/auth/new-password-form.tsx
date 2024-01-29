@@ -62,7 +62,7 @@ export const NewPasswordForm = () => {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="emailaddress@gmail.com"
+                    placeholder="password123"
                     type="password"
                     {...field}
                     disabled={isPending}
@@ -77,7 +77,7 @@ export const NewPasswordForm = () => {
           <FormError message={isError} />
           <FormSuccess message={isSuccess} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Send me the reset link
+       Reset password
           </Button>
         </form>
       </Form>

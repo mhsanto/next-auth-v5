@@ -22,7 +22,7 @@ export const newPassword = async (
 
 
     const existingToken = await getPasswordResetToken(token);
-    
+
     if (!existingToken) return { error: "Invalid token" };
 
     // Check if the token has expired
@@ -32,7 +32,9 @@ export const newPassword = async (
     // Check if the user associated with the token exists
     const existingUser = await getUserByEmail(existingToken.email);
     if (!existingUser) return { error: "User not found" };
+    const comparePassword = await bcrypt.compare(password, existingUser.password as string);
 
+    if (comparePassword) return { error: "your current password cannot be same as your previous password" };
     // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 10);
 
