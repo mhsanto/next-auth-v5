@@ -10,12 +10,11 @@ const SettingsPage = () => {
     logout();
   };
   return (
-    <form>
-      {JSON.stringify(session)}
-      <Button variant="destructive" onClick={handleSignOut}>
+    <div className="bg-white p-10 rounded-xl">
+      <Button onClick={handleSignOut}>
         Sign out
       </Button>
-    </form>
+    </div>
   );
 };
 
