@@ -1,21 +1,33 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { logout } from "@/lib/action/logout.action";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { settings } from "@/lib/action/settings";
+import { useSession } from "next-auth/react";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 const SettingsPage = () => {
-  const session = useCurrentUser();
-  const handleSignOut = () => {
-    logout();
-  };
-  return (
-    <div className="bg-white p-10 rounded-xl">
-      <Button onClick={handleSignOut}>
-        Sign out
-      </Button>
-    </div>
-  );
+	const [pending, startTransition] = useTransition();
+	const { update } = useSession();
+	const handleUpdateName = () => {
+		startTransition(() => {
+			settings({ name: "Mahmodul " }).then(() => {
+				update();
+				toast.success("Name updated");
+			});
+		});
+	};
+	return (
+		<Card className="w-[600px]">
+			<CardHeader>Settings</CardHeader>
+			<CardContent>
+				<Button disabled={pending} onClick={handleUpdateName}>
+					Update Name
+				</Button>
+			</CardContent>
+		</Card>
+	);
 };
 
 export default SettingsPage;
