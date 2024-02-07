@@ -27,7 +27,7 @@ export const SettingsSchema = z
 		name: z.optional(z.string().min(1).max(60)),
 		email: z.optional(z.string().email()),
 		role: z.enum([UserRole.ADMIN, UserRole.USER]),
-		isTwoFactorEnabled: z.optional(z.boolean()),
+		isTwofactorEnabled: z.optional(z.boolean()),
 	})
 	.refine(
 		(data) => {
@@ -44,3 +44,4 @@ export const SettingsSchema = z
 			path: ["newPassword"],
 		},
 	);
+	

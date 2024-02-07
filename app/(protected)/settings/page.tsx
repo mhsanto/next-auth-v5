@@ -53,7 +53,7 @@ const SettingsPage = () => {
       name: user?.name || undefined,
       email: user?.email || undefined,
       role: user?.role || undefined,
-      isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
+      isTwofactorEnabled: user?.isTwoFactorEnabled || undefined,
     }
   });
 
@@ -70,7 +70,7 @@ const SettingsPage = () => {
             setSuccess(data.success);
           }
         })
-        .catch(() => setError("Something went wrong!"));
+        .catch((error) => setError(`settings/page.tsx ${error.message}`));
     });
   }
 
@@ -195,7 +195,7 @@ const SettingsPage = () => {
               {user?.isOAuth === false && (
                 <FormField
                   control={form.control}
-                  name="isTwoFactorEnabled"
+                  name="isTwofactorEnabled"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                       <div className="space-y-0.5">
