@@ -1,6 +1,5 @@
 import LoginButton from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 const font = Poppins({
@@ -13,7 +12,7 @@ export default function Home() {
       <h1 className={cn("text-2xl font-semibold", font.className)}>
         NEXT AUTH V5
       </h1>
-      <LoginButton mode="redirect" asChild>
+      <LoginButton asChild>
         <Button size="lg" variant="secondary">Sign In</Button>
       </LoginButton>
     </main>
