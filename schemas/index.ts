@@ -20,5 +20,10 @@ export const NewPasswordFormSchema = z.object({
 	}),
 });
 export const SettingsSchema = z.object({
-	name: z.string().min(3).max(50),
+	password: z.string().min(6),
+	newPassword: z.string().min(6),
+	name: z.string().min(1).max(60),
+	email: z.string().email(),
+	role: z.string(),
+	isTwoFactorEnabled: z.boolean(),
 });

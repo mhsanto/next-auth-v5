@@ -4,6 +4,7 @@ import authConfig from "./auth.config";
 import { db } from "./lib/db";
 import { getUserById } from "./data/user";
 import { getTwoFactorConformationByUserId } from "./data/two-factor-confirmation";
+import { getAccountByUserId } from "./data/account";
 
 declare module "@auth/core" {
 	interface Session {
@@ -66,6 +67,7 @@ export const {
 			if (session.user) {
 				session.user.email = token.email;
 				session.user.name = token.name;
+				session.user.isOAuth = token.isOAuth as boolean;
 			}
 			return session;
 		},
@@ -81,6 +83,8 @@ export const {
 			token.isTwoFactorEnabled = existingUser?.isTwofactorEnabled;
 
 			if (!existingUser) return token;
+			const existingAccount = await getAccountByUserId(existingUser.id);
+			token.isOAuth = !!existingAccount;
 			token.role = existingUser.role;
 			return token;
 		},
