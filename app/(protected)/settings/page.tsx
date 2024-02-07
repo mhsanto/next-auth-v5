@@ -75,7 +75,7 @@ const SettingsPage = () => {
   }
 
   return ( 
-    <Card className="w-[600px]">
+    <Card className="w-[600px] min-h-screen h-max">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">
           ⚙️ Settings
