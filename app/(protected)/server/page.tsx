@@ -1,13 +1,9 @@
-import {UserInfo} from "@/components/auth/user-info";
+import { UserInfo } from "@/components/auth/user-info";
 import { Auth } from "@/lib/auth";
 
 const ServerPage = async () => {
-  const user = await Auth();
-  return (
-    <div>
-      <UserInfo user={user} label="Server" />
-    </div>
-  );
+	const user = await Auth();
+	return <UserInfo user={user} label="Server" />;
 };
 
 export default ServerPage;

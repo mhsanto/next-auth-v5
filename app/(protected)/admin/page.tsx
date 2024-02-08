@@ -25,7 +25,7 @@ const AdminPage = () => {
 		});
 	}
 	return (
-		<Card className="w-[600px]">
+		<Card className="max-w-[600px] w-full mx-2 ">
 			<CardHeader>
 				<p className="text-2xl font-semibold text-center">Admin</p>
 			</CardHeader>
@@ -33,13 +33,13 @@ const AdminPage = () => {
 				<RoleGate allowedRole={UserRole.ADMIN}>
 					<FormSuccess message="I guess you are an Admin" />
 				</RoleGate>
-				<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-md">
+				<div className="flex flex-col sm:flex-row  gap-3 items-center justify-between rounded-lg border p-3 shadow-md">
 					<p className="text-sm font-medium">Admin Api Route</p>
-					<Button onClick={handleAdmin}>Click TO Test</Button>
+					<Button size="sm" onClick={handleAdmin}>Click to test</Button>
 				</div>
-				<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-md">
+				<div className="flex flex-col sm:flex-row  gap-3  items-center justify-between rounded-lg border p-3 shadow-md">
 					<p className="text-sm font-medium ">Admin-only Server ACtion</p>
-					<Button onClick={onAdminAction}>Click TO Test</Button>
+					<Button onClick={onAdminAction}>Click to test</Button>
 				</div>
 			</CardContent>
 		</Card>

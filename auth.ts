@@ -18,6 +18,7 @@ export const {
 	handlers: { GET, POST },
 	auth,
 	signIn,
+	unstable_update,
 	signOut,
 } = NextAuth({
 	adapter: PrismaAdapter(db),
@@ -76,16 +77,14 @@ export const {
 			if (!sub) return token;
 
 			const existingUser = await getUserById(sub);
-			token.name = existingUser?.name;
-			token.email = existingUser?.email;
-			token.sub = existingUser?.id;
-			token.role = existingUser?.role;
-			token.isTwoFactorEnabled = existingUser?.isTwofactorEnabled;
-
 			if (!existingUser) return token;
 			const existingAccount = await getAccountByUserId(existingUser.id);
+
 			token.isOAuth = !!existingAccount;
+			token.name = existingUser.name;
+			token.email = existingUser.email;
 			token.role = existingUser.role;
+			token.isTwoFactorEnabled = existingUser.isTwofactorEnabled;
 			return token;
 		},
 	},
